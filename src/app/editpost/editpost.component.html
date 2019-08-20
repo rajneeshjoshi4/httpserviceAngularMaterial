@@ -1,0 +1,44 @@
+<a routerLink="/">Back</a>
+<div>
+  <form [formGroup]="editPostForm">
+    <label>crno:</label>
+    <input formControlName="crno" type="text" />
+    <br/>
+    <label>desc:</label>
+    <input formControlName="desc" type="text" />
+    <br/>
+    <label>raisedby:</label>
+    <input formControlName="raisedby" type="text" />
+    <br/>
+    <label>raisedon:</label>
+    <input formControlName="raisedon" type="text" />
+    <br/>
+    <label>effort:</label>
+    <input formControlName="effort" type="text" />
+    <br/>
+    <label>total:</label>
+    <input formControlName="total" type="text" />
+    <br/>
+    <label>status:</label>
+    <input formControlName="status" type="text" />
+    <br/>
+    <label>attachment:</label>
+    <input formControlName="attachment" type="text" />
+
+
+    <!-- <ngx-file-picker
+    [adapter]="adapter"
+    [fileExtensions]="['pdf']"
+    >
+    </ngx-file-picker> -->
+    <br/>
+
+    <button *ngIf="!editMode" type="submit" (click)="onSubmit()">Add</button>
+    <button *ngIf="editMode" type="submit" (click)="onSubmit()">Update</button>
+  </form>
+
+  <div *ngIf="isAdded">{{confermationStr}}</div>
+
+</div>
+
+<span *ngIf="editMode">{{id}}</span>

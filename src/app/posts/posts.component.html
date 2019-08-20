@@ -1,0 +1,36 @@
+<div fxLayout="row" fxLayoutAlign="space-between center">
+    <h2>Change Request List</h2>
+    <div class="tools">
+      <button mat-mini-fab color="basic">
+        <mat-icon>save_alt</mat-icon>
+      </button>
+      <button mat-mini-fab color="primary" [matMenuTriggerFor]="filter">
+        <mat-icon>filter_list</mat-icon>
+      </button>
+      <mat-menu #filter="matMenu">
+        <button class="approved" mat-menu-item>
+          <mat-icon>trip_origin</mat-icon>
+          <span>Approved</span>
+        </button>
+        <button class="pending" mat-menu-item>
+          <mat-icon>trip_origin</mat-icon>
+          <span>Pending</span>
+        </button>
+        <button class="hold" mat-menu-item>
+          <mat-icon>trip_origin</mat-icon>
+          <span>On Hold</span>
+        </button>
+        <button class="dis" mat-menu-item>
+          <mat-icon>trip_origin</mat-icon>
+          <span>Disapproved</span>
+        </button>
+      </mat-menu>
+  
+    </div>
+  
+  </div>
+<app-listing></app-listing>
+<div fxLayout="row" fxLayoutAlign="end center" class="gc-margin-top-20">
+  <button mat-raised-button color="primary" (click)="nvaigateToAdd()">
+    <mat-icon>add</mat-icon> Add Post</button>
+</div>
