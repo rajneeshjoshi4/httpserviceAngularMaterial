@@ -1,27 +1,91 @@
-<a routerLink="/">Back</a>
-<div>
+<div fxLayout="row" fxLayoutAlign="space-between center">
+  <h2 *ngIf="editMode">CR Request Detail {{post.crno}}</h2>
+  <h2 *ngIf="!editMode">New Change Request</h2>
+  <div class="tools">
+      <button mat-mini-fab color="basic" routerLink="/">
+        <mat-icon>undo</mat-icon>
+      </button>
+    <button mat-mini-fab color="primary" routerLink="/addPost">
+      <mat-icon>add</mat-icon>
+    </button>
+  </div>
+
+</div>
+
+
+<mat-card>
   <form [formGroup]="editPostForm">
-    <label>crno:</label>
-    <input formControlName="crno" type="text" />
-    <br/>
-    <label>desc:</label>
-    <input formControlName="desc" type="text" />
-    <br/>
-    <label>raisedby:</label>
-    <input formControlName="raisedby" type="text" />
-    <br/>
-    <label>raisedon:</label>
-    <input formControlName="raisedon" type="text" />
-    <br/>
-    <label>effort:</label>
-    <input formControlName="effort" type="text" />
-    <br/>
-    <label>total:</label>
-    <input formControlName="total" type="text" />
-    <br/>
-    <label>status:</label>
-    <input formControlName="status" type="text" />
-    <br/>
+    <div fxLayout="row" fxLayoutGap="80px">
+      <div fxFlex="50" fxLayout="column">
+        <div fxFlex="100" fxLayout="row" fxLayoutGap="40px">
+          <div fxFlex="50">
+            <mat-form-field class="full-width">
+              <input formControlName="crno" matInput placeholder="CR NO" value="">
+            </mat-form-field>
+          </div>
+          <div fxFlex="50">
+            <mat-form-field class="full-width">
+              <input formControlName="raisedon" matInput [matDatepicker]="picker" placeholder="Raised On">
+              <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+              <mat-datepicker #picker></mat-datepicker>
+            </mat-form-field>
+          </div>
+        </div>
+
+        <div fxFlex="100" fxLayout="row" fxLayoutGap="40px">
+          <mat-radio-group formControlName="raisedby" aria-label="Select an option">
+            <mat-radio-button value="Compunnal">Compunnal</mat-radio-button>
+            <mat-radio-button value="Client">Client</mat-radio-button>
+          </mat-radio-group>
+        </div>
+
+        <div fxFlex="100" fxLayout="row" fxLayoutGap="40px">
+          <div fxFlex="50">
+            <mat-form-field class="full-width">
+              <input formControlName="effort" matInput placeholder="Effort" value="">
+            </mat-form-field>
+          </div>
+          <div fxFlex="50">
+            <mat-form-field class="full-width">
+              <input formControlName="total" matInput placeholder="Total" value="">
+            </mat-form-field>
+          </div>
+        </div>
+
+
+      </div>
+      <div fxFlex="50" fxLayout="column">
+        <div fxFlex="100">
+          <mat-form-field class="full-width">
+            <textarea formControlName="desc" matInput placeholder="Description"></textarea>
+          </mat-form-field>
+        </div>
+        <div fxFlex="100" fxLayout="row" fxLayoutGap="40px">
+          <mat-form-field class="full-width">
+            <input formControlName="sharedwithclient" matInput [matDatepicker]="picker2" placeholder="Shared with Client">
+            <mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
+            <mat-datepicker #picker2></mat-datepicker>
+          </mat-form-field>
+
+          <mat-form-field class="full-width">
+            <mat-select formControlName="status" placeholder="Status">
+              <mat-option value="Approved">Approved</mat-option>
+              <mat-option value="Pending">Pending</mat-option>
+              <mat-option value="On Hold">On Hold</mat-option>
+              <mat-option value="Disapproved">Disapproved</mat-option>
+            </mat-select>
+          </mat-form-field>
+
+        </div>
+      </div>
+    </div>
+
+
+
+
+
+
+
     <label>attachment:</label>
     <input formControlName="attachment" type="text" />
 
@@ -39,6 +103,7 @@
 
   <div *ngIf="isAdded">{{confermationStr}}</div>
 
-</div>
 
-<span *ngIf="editMode">{{id}}</span>
+
+  <span *ngIf="editMode">{{id}}</span>
+</mat-card>

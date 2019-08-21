@@ -50,9 +50,9 @@ export class PostService {
   }
 
   // Get all Posts data
-  getPostsList(): Observable<Post> {
+  getPostsList(): Observable<any> {
     return this.http
-      .get<Post>(this.dataUrl)
+      .get<any>(this.dataUrl)
       .pipe(
       retry(2),
       catchError(this.handleError)

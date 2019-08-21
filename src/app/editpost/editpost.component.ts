@@ -48,7 +48,8 @@ export class EditpostComponent implements OnInit {
       'effort': new FormControl(''),
       'total': new FormControl(''),
       'status': new FormControl(''),
-      'attachment': new FormControl('')
+      'attachment': new FormControl(''),
+      'raisedwithclient': new FormControl('')
     })
 
 
@@ -66,6 +67,7 @@ export class EditpostComponent implements OnInit {
           'total': this.post.total,
           'status': this.post.status,
           'attachment': this.post.attachment,
+          'raisedwithclient': this.post.raisedwithclient
 
         })
 
@@ -84,7 +86,8 @@ export class EditpostComponent implements OnInit {
       effort: this.editPostForm.value.effort,
       total: this.editPostForm.value.total,
       status: this.editPostForm.value.status,
-      attachment: this.editPostForm.value.attachment
+      attachment: this.editPostForm.value.attachment,
+      raisedwithclient: this.editPostForm.value.raisedwithclient
     }
 
     if (this.editMode) {

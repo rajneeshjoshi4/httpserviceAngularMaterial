@@ -1,5 +1,5 @@
 export class Post {
-    id: number;
+    id?: number;
     crno: string;
     desc: string;
     raisedby: string;
@@ -8,4 +8,5 @@ export class Post {
     total: number;
     status: string;
     attachment: string;
+    raisedwithclient: string;
 }
