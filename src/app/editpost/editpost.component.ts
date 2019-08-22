@@ -41,7 +41,7 @@ export class EditpostComponent implements OnInit {
     this.editMode = this.id != null;
 
     this.editPostForm = new FormGroup({
-      'crno': new FormControl(''),
+      'crno': new FormControl({ value: '', disabled: this.editMode ? 'disabled' : '' }),
       'desc': new FormControl(''),
       'raisedby': new FormControl(''),
       'raisedon': new FormControl(''),
