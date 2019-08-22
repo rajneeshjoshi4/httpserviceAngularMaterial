@@ -1,66 +1,67 @@
 {
   "posts": [
     {
+      "id": 1,
       "crno": "CR0001",
       "desc": "The dummy description",
       "raisedby": "Client",
       "raisedon": "2019-08-20T18:30:00.000Z",
       "effort": "8",
-      "total": "80",
+      "total": "80000",
       "status": "Pending",
       "attachment": "cr0001",
-      "raisedwithclient": "",
-      "id": 1
+      "raisedwithclient": "2019-08-21T18:30:00.000Z"
     },
     {
+      "id": 2,
       "crno": "CR0002",
       "desc": "Dummy text",
       "raisedby": "Compunnal",
       "raisedon": "2019-08-20T18:30:00.000Z",
       "effort": "9",
-      "total": "90",
+      "total": "67790",
       "status": "On Hold",
       "attachment": null,
-      "raisedwithclient": null,
-      "id": 2
+      "raisedwithclient": "2019-08-21T18:30:00.000Z"
     },
     {
+      "id": 3,
       "crno": "CR0003",
-      "desc": "Description description",
+      "desc": "Description description test",
       "raisedby": "Compunnal",
       "raisedon": "2019-08-20T18:30:00.000Z",
       "effort": "6",
-      "total": "60",
+      "total": "60900",
       "status": "On Hold",
       "attachment": "cr0003",
-      "raisedwithclient": "",
-      "id": 3
+      "raisedwithclient": "2019-08-21T18:30:00.000Z"
     },
     {
+      "id": 4,
       "crno": "CR0004",
       "desc": "desc dummy text",
       "raisedby": "Client",
       "raisedon": "2019-08-20T18:30:00.000Z",
       "effort": "6",
-      "total": "60",
+      "total": "189960",
       "status": "Approved",
       "attachment": "cr0004",
-      "raisedwithclient": null,
-      "id": 4
+      "raisedwithclient": "2019-08-21T18:30:00.000Z"
     },
     {
+      "id": 5,
       "crno": "CR0005",
-      "desc": "text",
+      "desc": "Dummy Description text",
       "raisedby": "Compunnal",
       "raisedon": "2019-08-20T18:30:00.000Z",
       "effort": "3",
-      "total": "30",
+      "total": "30000",
       "status": "On Hold",
       "attachment": "cr0005",
-      "raisedwithclient": null,
-      "id": 5
+      "raisedwithclient": "2019-08-21T18:30:00.000Z"
     },
     {
+      "id": 6,
       "crno": "CR0006",
       "desc": "SHARE WITH THE CLIENT",
       "raisedby": "Client",
@@ -69,8 +70,7 @@
       "total": "90",
       "status": "On Hold",
       "attachment": "CR0006",
-      "raisedwithclient": null,
-      "id": 6
+      "raisedwithclient": "2019-08-21T18:30:00.000Z"
     },
     {
       "id": 7,
@@ -82,9 +82,10 @@
       "total": "900",
       "status": "Approved",
       "attachment": "cr0007",
-      "raisedwithclient": ""
+      "raisedwithclient": "2019-08-21T18:30:00.000Z"
     },
     {
+      "id": 8,
       "crno": "CR0008",
       "desc": "test tset test",
       "raisedby": "Client",
@@ -93,8 +94,7 @@
       "total": "600",
       "status": "Disapproved",
       "attachment": "cr0008",
-      "raisedwithclient": "",
-      "id": 8
+      "raisedwithclient": "2019-08-21T18:30:00.000Z"
     }
   ]
 }

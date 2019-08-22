@@ -1,3 +1,27 @@
 table {
     width: 100%
 }
+
+span {
+    border-radius: 5px;
+    padding: 3px 5px;
+    display: inline-block;
+    width: 90px;
+    text-align: center;
+    &.approved {
+        color: #077e3a;
+        background: #aaddbf;
+    }
+    &.pending {
+        color: #db9405;
+        background: #fadca0;
+    }
+    &.disapproved {
+        color: #d10d0d;
+        background: #f4a9a9;
+    }
+    &.onhold {
+        color: #646464;
+        background: #d6d6d6;
+    }
+}

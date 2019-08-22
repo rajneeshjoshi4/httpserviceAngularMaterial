@@ -1,10 +1,10 @@
 <div fxLayout="row" fxLayoutAlign="space-between center">
-  <h2 *ngIf="editMode">CR Request Detail {{post.crno}}</h2>
+  <h2 *ngIf="editMode"><mat-icon class="crrtitleicon">trending_flat</mat-icon> CR Request Detail {{post.crno}}</h2>
   <h2 *ngIf="!editMode">New Change Request</h2>
   <div class="tools">
-      <button mat-mini-fab color="basic" routerLink="/">
+    <!-- <button mat-mini-fab color="basic" routerLink="/">
         <mat-icon>undo</mat-icon>
-      </button>
+      </button> -->
     <button mat-mini-fab color="primary" routerLink="/addPost">
       <mat-icon>add</mat-icon>
     </button>
@@ -17,7 +17,7 @@
   <form [formGroup]="editPostForm">
     <div fxLayout="row" fxLayoutGap="80px">
       <div fxFlex="50" fxLayout="column">
-        <div fxFlex="100" fxLayout="row" fxLayoutGap="40px">
+        <div fxFlex="100" fxLayout="row" fxLayoutGap="40px" class="fromrow">
           <div fxFlex="50">
             <mat-form-field class="full-width">
               <input formControlName="crno" matInput placeholder="CR NO" value="">
@@ -32,39 +32,47 @@
           </div>
         </div>
 
-        <div fxFlex="100" fxLayout="row" fxLayoutGap="40px">
-          <mat-radio-group formControlName="raisedby" aria-label="Select an option">
+        <div fxFlex="100" fxLayout="row" fxLayoutGap="40px" class="fromrow">
+          <mat-radio-group formControlName="raisedby" aria-label="Select an option" class="radiobuttons" color="primary">
+            <label>Raised By</label>
             <mat-radio-button value="Compunnal">Compunnal</mat-radio-button>
             <mat-radio-button value="Client">Client</mat-radio-button>
           </mat-radio-group>
         </div>
 
-        <div fxFlex="100" fxLayout="row" fxLayoutGap="40px">
+        <div fxFlex="100" fxLayout="row" fxLayoutGap="40px" class="fromrow">
           <div fxFlex="50">
             <mat-form-field class="full-width">
               <input formControlName="effort" matInput placeholder="Effort" value="">
+              <mat-icon matSuffix>access_time</mat-icon>
             </mat-form-field>
           </div>
           <div fxFlex="50">
             <mat-form-field class="full-width">
               <input formControlName="total" matInput placeholder="Total" value="">
+              <mat-icon matSuffix>monetization_on</mat-icon>
             </mat-form-field>
           </div>
+        </div>
+        <div fxFlex="100" fxLayout="row" fxLayoutGap="40px" class="fromrow">
+          <mat-file-upload class="fileupload"  [labelText]="'CR Document'"></mat-file-upload>
+          <!-- <label>attachment:</label>
+          <input formControlName="attachment" type="text" /> -->
         </div>
 
 
       </div>
       <div fxFlex="50" fxLayout="column">
-        <div fxFlex="100">
+        <div fxFlex="100" class="fromrow">
           <mat-form-field class="full-width">
-            <textarea formControlName="desc" matInput placeholder="Description"></textarea>
+            <textarea formControlName="desc" matInput placeholder="Description" class="textarea"></textarea>
           </mat-form-field>
         </div>
-        <div fxFlex="100" fxLayout="row" fxLayoutGap="40px">
+        <div fxFlex="100" fxLayout="row" fxLayoutGap="40px" class="fromrow">
           <mat-form-field class="full-width">
-            <input formControlName="sharedwithclient" matInput [matDatepicker]="picker2" placeholder="Shared with Client">
-            <mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
-            <mat-datepicker #picker2></mat-datepicker>
+            <input value="" formControlName="raisedwithclient" matInput [matDatepicker]="pickertwo" placeholder="Shared with Client">
+            <mat-datepicker-toggle matSuffix [for]="pickertwo"></mat-datepicker-toggle>
+            <mat-datepicker #pickertwo></mat-datepicker>
           </mat-form-field>
 
           <mat-form-field class="full-width">
@@ -80,30 +88,13 @@
       </div>
     </div>
 
-
-
-
-
-
-
-    <label>attachment:</label>
-    <input formControlName="attachment" type="text" />
-
-
-    <!-- <ngx-file-picker
-    [adapter]="adapter"
-    [fileExtensions]="['pdf']"
-    >
-    </ngx-file-picker> -->
-    <br/>
-
-    <button *ngIf="!editMode" type="submit" (click)="onSubmit()">Add</button>
-    <button *ngIf="editMode" type="submit" (click)="onSubmit()">Update</button>
+    <div>
+      <button *ngIf="!editMode" mat-raised-button color="primary" type="submit" (click)="onSubmit()">SAVE</button>
+      <button *ngIf="editMode" mat-raised-button color="primary" type="submit" (click)="onSubmit()">UPDATE</button>
+      <button mat-button routerLink="/">CANCEL</button>
+    </div>
   </form>
 
   <div *ngIf="isAdded">{{confermationStr}}</div>
-
-
-
-  <span *ngIf="editMode">{{id}}</span>
+  <!-- <span *ngIf="editMode">{{id}}</span> -->
 </mat-card>

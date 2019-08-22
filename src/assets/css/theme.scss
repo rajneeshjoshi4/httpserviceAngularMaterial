@@ -1,5 +1,4 @@
 @import '~@angular/material/theming';
-
 body {
     font-family: DINPro-Regular;
     font-size: 14px;
@@ -15,99 +14,94 @@ main {
 // ###############
 // for text
 @font-face {
-  font-family: DINPro-Black;
-  src: url("../fonts/DINPro-Black.otf") format("opentype");
+    font-family: DINPro-Black;
+    src: url("../fonts/DINPro-Black.otf") format("opentype");
 }
 
 @font-face {
-  font-family: DINPro-Light;
-  src: url("../fonts/DINPro-Light.otf") format("opentype");
+    font-family: DINPro-Light;
+    src: url("../fonts/DINPro-Light.otf") format("opentype");
 }
 
 @font-face {
-  font-family: DINPro-Medium;
-  src: url("../fonts/DINPro-Medium.otf") format("opentype");
+    font-family: DINPro-Medium;
+    src: url("../fonts/DINPro-Medium.otf") format("opentype");
 }
 
 @font-face {
-  font-family: DINPro-Regular;
-  src: url("../fonts/DINPro-Regular.otf") format("opentype");
+    font-family: DINPro-Regular;
+    src: url("../fonts/DINPro-Regular.otf") format("opentype");
 }
 
-// $custom-typography: mat-typography-config($font-family: 'DINPro-Regular');
-
+$custom-typography: mat-typography-config($font-family: 'DINPro-Regular');
 // // ################
 // // ##   Themes   ##
 // // ################
 // // define a real custom palette (using http://mcg.mbitson.com)
-// $bv-red: ( 50: #f6e0e6,
-// 100: #e7b3c0,
-// 200: #d88096,
-// 300: #c84d6c,
-// 400: #bc264d,
-// 500: #b0002d,
-// 600: #a90028,
-// 700: #a00022,
-// 800: #97001c,
-// 900: #870011,
-// A100: #ffb3b8,
-// A200: #ff8088,
-// A400: #ff4d58,
-// A700: #ff3440,
-// contrast: ( 50: $black-87-opacity,
-// 100: $black-87-opacity,
-// 200: $black-87-opacity,
-// 300: #ffffff,
-// 400: #ffffff,
-// 500: #ffffff,
-// 600: #ffffff,
-// 700: #ffffff,
-// 800: #ffffff,
-// 900: #ffffff,
-// A100: $black-87-opacity,
-// A200: $black-87-opacity,
-// A400: $black-87-opacity,
-// A700: #ffffff,
-// ));
-// $bv-gray: ( 50: #ededeb,
-// 100: #d2d1ce,
-// 200: #b4b2ae,
-// 300: #95938d,
-// 400: #7f7c74,
-// 500: #68655c,
-// 600: #605d54,
-// 700: #55534a,
-// 800: #4b4941,
-// 900: #3a3730,
-// A100: #fae391,
-// A200: #f8d660,
-// A400: #ffcf26,
-// A700: #ffc90d,
-// contrast: ( 50: $black-87-opacity,
-// 100: $black-87-opacity,
-// 200: $black-87-opacity,
-// 300: $black-87-opacity,
-// 400: #ffffff,
-// 500: #ffffff,
-// 600: #ffffff,
-// 700: #ffffff,
-// 800: #ffffff,
-// 900: #ffffff,
-// A100: $black-87-opacity,
-// A200: $black-87-opacity,
-// A400: $black-87-opacity,
-// A700: $black-87-opacity));
-
+$bv-red: (50: #e0effc,
+100: #b3d6f7,
+200: #80bbf1,
+300: #4da0eb,
+400: #268be7,
+500: #0077e3,
+600: #006fe0,
+700: #0064dc,
+800: #005ad8,
+900: #0047d0,
+A100: #f8faff,
+A200: #c5d5ff,
+A400: #92b0ff,
+A700: #799dff,
+contrast: ( 50: #000000,
+100: #000000,
+200: #000000,
+300: #000000,
+400: #ffffff,
+500: #ffffff,
+600: #ffffff,
+700: #ffffff,
+800: #ffffff,
+900: #ffffff,
+A100: #000000,
+A200: #000000,
+A400: #000000,
+A700: #000000,
+));
+$bv-gray: ( 50: #ededeb,
+100: #d2d1ce,
+200: #b4b2ae,
+300: #95938d,
+400: #7f7c74,
+500: #68655c,
+600: #605d54,
+700: #55534a,
+800: #4b4941,
+900: #3a3730,
+A100: #fae391,
+A200: #f8d660,
+A400: #ffcf26,
+A700: #ffc90d,
+contrast: ( 50: $black-87-opacity,
+100: $black-87-opacity,
+200: $black-87-opacity,
+300: $black-87-opacity,
+400: #ffffff,
+500: #ffffff,
+600: #ffffff,
+700: #ffffff,
+800: #ffffff,
+900: #ffffff,
+A100: $black-87-opacity,
+A200: $black-87-opacity,
+A400: $black-87-opacity,
+A700: $black-87-opacity));
 // // mandatory stuff for theming
-// $bv-pp-primary: mat-palette($bv-red);
-// $bv-pp-accent : mat-palette($bv-gray);
-
+$bv-pp-primary: mat-palette($bv-red);
+$bv-pp-accent: mat-palette($bv-gray);
 // // include the custom theme components into a theme object
-// $bv-pp-theme: mat-light-theme($bv-pp-primary,
-// $bv-pp-accent);
-
+$bv-pp-theme: mat-light-theme($bv-pp-primary,
+$bv-pp-accent);
 // // include the custom theme object into the angular material theme
-// @include angular-material-theme($bv-pp-theme);
-
+@include angular-material-theme($bv-pp-theme);
 // // include the custom typography object into the angular material
-// @include mat-core($custom-typography);
+@include mat-core($custom-typography);
