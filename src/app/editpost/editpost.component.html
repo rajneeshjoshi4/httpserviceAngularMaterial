@@ -1,5 +1,5 @@
 <div fxLayout="row" fxLayoutAlign="space-between center">
-  <h2 *ngIf="editMode"><mat-icon class="crrtitleicon">trending_flat</mat-icon> CR Request Detail {{post.crno}}</h2>
+  <h2 *ngIf="editMode"><mat-icon class="crrtitleicon">trending_flat</mat-icon> CR Request: {{post.CrId}}</h2>
   <h2 *ngIf="!editMode">New Change Request</h2>
   <div class="tools">
     <!-- <button mat-mini-fab color="basic" routerLink="/">
@@ -20,12 +20,13 @@
         <div fxFlex="100" fxLayout="row" fxLayoutGap="40px" class="fromrow">
           <div fxFlex="50">
             <mat-form-field class="full-width">
-              <input formControlName="crno" matInput placeholder="CR NO" value="">
+              <input formControlName="ProjectId" matInput placeholder="Project Id">
+              <input formControlName="CrId" matInput placeholder="CR NO" style="display:none">
             </mat-form-field>
           </div>
           <div fxFlex="50">
             <mat-form-field class="full-width">
-              <input formControlName="raisedon" matInput [matDatepicker]="picker" placeholder="Raised On">
+              <input formControlName="RaisedOn" matInput [matDatepicker]="picker" placeholder="Raised On">
               <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
               <mat-datepicker #picker></mat-datepicker>
             </mat-form-field>
@@ -33,23 +34,23 @@
         </div>
 
         <div fxFlex="100" fxLayout="row" fxLayoutGap="40px" class="fromrow">
-          <mat-radio-group formControlName="raisedby" aria-label="Select an option" class="radiobuttons" color="primary">
+          <mat-radio-group formControlName="RaisedBy" aria-label="Select an option" class="radiobuttons" color="primary">
             <label>Raised By</label>
-            <mat-radio-button value="Compunnal">Compunnal</mat-radio-button>
-            <mat-radio-button value="Client">Client</mat-radio-button>
+            <mat-radio-button value=2002>Client</mat-radio-button>
+            <mat-radio-button value=2003>Compunnal</mat-radio-button>
           </mat-radio-group>
         </div>
 
         <div fxFlex="100" fxLayout="row" fxLayoutGap="40px" class="fromrow">
           <div fxFlex="50">
             <mat-form-field class="full-width">
-              <input formControlName="effort" matInput placeholder="Effort" value="">
+              <input formControlName="EffortHours" matInput placeholder="Effort" value="">
               <mat-icon matSuffix>access_time</mat-icon>
             </mat-form-field>
           </div>
           <div fxFlex="50">
             <mat-form-field class="full-width">
-              <input formControlName="total" matInput placeholder="Total" value="">
+              <input formControlName="Total" matInput placeholder="Total" value="">
               <mat-icon matSuffix>monetization_on</mat-icon>
             </mat-form-field>
           </div>
@@ -65,26 +66,31 @@
       <div fxFlex="50" fxLayout="column">
         <div fxFlex="100" class="fromrow">
           <mat-form-field class="full-width">
-            <textarea formControlName="desc" matInput placeholder="Description" class="textarea"></textarea>
+            <textarea formControlName="ChangeDescription" matInput placeholder="Description" class="textarea"></textarea>
           </mat-form-field>
         </div>
         <div fxFlex="100" fxLayout="row" fxLayoutGap="40px" class="fromrow">
           <mat-form-field class="full-width">
-            <input value="" formControlName="raisedwithclient" matInput [matDatepicker]="pickertwo" placeholder="Shared with Client">
+            <input value="" formControlName="SharedWithCustomerOn" matInput [matDatepicker]="pickertwo" placeholder="Shared with Client">
             <mat-datepicker-toggle matSuffix [for]="pickertwo"></mat-datepicker-toggle>
             <mat-datepicker #pickertwo></mat-datepicker>
           </mat-form-field>
 
           <mat-form-field class="full-width">
-            <mat-select formControlName="status" placeholder="Status">
-              <mat-option value="Approved">Approved</mat-option>
-              <mat-option value="Pending">Pending</mat-option>
-              <mat-option value="On Hold">On Hold</mat-option>
-              <mat-option value="Disapproved">Disapproved</mat-option>
+            <mat-select formControlName="ApprovalStatus" placeholder="Status">
+              <mat-option value=1001>Pending</mat-option>
+              <mat-option value=1002>Approved</mat-option>
+              <mat-option value=1003>On Hold</mat-option>
+              <mat-option value=1004>Disapproved</mat-option>
             </mat-select>
           </mat-form-field>
 
         </div>
+        <div fxFlex="100" class="fromrow">
+            <mat-form-field class="full-width">
+              <textarea formControlName="Comments" matInput placeholder="Comments"></textarea>
+            </mat-form-field>
+          </div>
       </div>
     </div>
 

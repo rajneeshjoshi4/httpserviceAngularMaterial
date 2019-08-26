@@ -38,7 +38,7 @@ export class PostService {
     // return an observable with a user-facing error message
     window.alert(errorMessage);
     return throwError(errorMessage
-    //  'Something bad happened; please try again later.'
+      //  'Something bad happened; please try again later.'
     );
   };
 
@@ -52,7 +52,7 @@ export class PostService {
   // Get all Posts data
   getPostsList(): Observable<any> {
     return this.http
-      .get<any>(this.dataUrl)
+      .get<any>(this.compunnalapi + "ChangeRequest/ProjectId/2003")
       .pipe(
       retry(2),
       catchError(this.handleError)
@@ -60,9 +60,9 @@ export class PostService {
   }
 
   // Get single post data by ID
-  getPost(id): Observable<Post> {
+  getPost(id): Observable<any> {
     return this.http
-      .get<Post>(this.dataUrl + '/' + id)
+      .get<any>(this.compunnalapi + 'ChangeRequest/' + id)
       .pipe(
       retry(2),
       catchError(this.handleError)
@@ -71,9 +71,11 @@ export class PostService {
 
 
   // Create a new post
-  createPost(post): Observable<Post> {
+  createPost(post): Observable<any> {
+    const formData = new FormData();
+    formData.set("json", JSON.stringify(post));
     return this.http
-      .post<Post>(this.dataUrl, JSON.stringify(post), this.httpOptions)
+      .post<any>(this.compunnalapi + 'ChangeRequest/', formData)
       .pipe(
       retry(2),
       catchError(this.handleError)
@@ -82,9 +84,13 @@ export class PostService {
 
 
   // Update post by id
-  updatePost(id, post): Observable<Post> {
+  updatePost(id, post): Observable<any> {
+    const formData = new FormData();
+    formData.set("json", JSON.stringify(post));
     return this.http
-      .put<Post>(this.dataUrl + '/' + id, JSON.stringify(post), this.httpOptions)
+      .put<any>(this.compunnalapi + 'ChangeRequest/' + id,
+      formData
+      )
       .pipe(
       retry(2),
       catchError(this.handleError)
@@ -92,14 +98,10 @@ export class PostService {
   }
 
 
-  // Delete post by id
-  deletePost(id) {
-    return this.http
-      .delete<Post>(this.dataUrl + '/' + id, this.httpOptions)
-      .pipe(
-      retry(2),
-      catchError(this.handleError)
-      )
-  }
-
+ // Delete post by id
+ deletePost(id):Observable<any>{
+  return this.http
+    .delete<any>(this.compunnalapi + 'ChangeRequest/' + id, this.httpOptions)
+    .pipe(catchError(this.handleError))
+}
 }

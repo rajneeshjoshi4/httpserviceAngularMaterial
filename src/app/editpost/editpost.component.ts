@@ -17,7 +17,7 @@ export class EditpostComponent implements OnInit {
 
   isAdded: boolean = false;
   id: number;
-  post: Post;
+  post: any;
 
   editMode = false;
   posts: any = [];
@@ -41,57 +41,63 @@ export class EditpostComponent implements OnInit {
     this.editMode = this.id != null;
 
     this.editPostForm = new FormGroup({
-      'crno': new FormControl({ value: '', disabled: this.editMode ? 'disabled' : '' }),
-      'desc': new FormControl(''),
-      'raisedby': new FormControl(''),
-      'raisedon': new FormControl(''),
-      'effort': new FormControl(''),
-      'total': new FormControl(''),
-      'status': new FormControl(''),
-      'attachment': new FormControl(''),
-      'raisedwithclient': new FormControl('')
+      'CrId': new FormControl(), //id is auto generated
+      'ProjectId': new FormControl(2003),
+      'ChangeDescription': new FormControl(''),
+      'RaisedBy': new FormControl(''),
+      'RaisedOn': new FormControl(''),
+      'EffortHours': new FormControl(''),
+      'Total': new FormControl(''),
+      'ApprovalStatus': new FormControl(''),
+      'Documents': new FormControl(''),
+      'SharedWithCustomerOn': new FormControl(''),
+      'Comments': new FormControl('')
+
     })
+    
+    this.editPostForm.get('CrId').setValue(0);
+    this.editPostForm.get('ProjectId').disable();
 
 
     if (this.editMode == true) {
       this.service.getPost(this.id).subscribe(responseData => {
-        this.post = responseData;
-        console.log(this.post);
+        this.post = responseData.Content.Result;
+        //console.log(this.post);
 
         this.editPostForm.setValue({
-          'crno': this.post.crno,
-          'desc': this.post.desc,
-          'raisedby': this.post.raisedby,
-          'raisedon': this.post.raisedon,
-          'effort': this.post.effort,
-          'total': this.post.total,
-          'status': this.post.status,
-          'attachment': this.post.attachment,
-          'raisedwithclient': this.post.raisedwithclient
-
-        })
-
+          'CrId': this.post.CrId,
+          'ProjectId': this.post.ProjectId,
+          'ChangeDescription': this.post.ChangeDescription,
+          'RaisedBy': this.post.RaisedBy,
+          'RaisedOn': this.post.RaisedOn,
+          'EffortHours': this.post.EffortHours,
+          'Total': this.post.Total,
+          'ApprovalStatus': this.post.ApprovalStatus,
+          'Documents': this.post.Documents,
+          'SharedWithCustomerOn': this.post.SharedWithCustomerOn,
+          'Comments': this.post.Comments
+        });
       })
     }
   }
 
   onSubmit() {
     console.log(this.editPostForm);
-    let post: Post = {
-      id: this.id,
-      crno: this.editPostForm.value.crno,
-      desc: this.editPostForm.value.desc,
-      raisedby: this.editPostForm.value.raisedby,
-      raisedon: this.editPostForm.value.raisedon,
-      effort: this.editPostForm.value.effort,
-      total: this.editPostForm.value.total,
-      status: this.editPostForm.value.status,
-      attachment: this.editPostForm.value.attachment,
-      raisedwithclient: this.editPostForm.value.raisedwithclient
+    let post: any = {
+      CrId: this.editPostForm.value.CrId,
+      ProjectId: this.post.ProjectId  || 2003,
+      ChangeDescription: this.editPostForm.value.ChangeDescription,
+      RaisedBy: this.editPostForm.value.RaisedBy,
+      RaisedOn: this.editPostForm.value.RaisedOn,
+      EffortHours: this.editPostForm.value.EffortHours,
+      Total: this.editPostForm.value.Total,
+      ApprovalStatus: this.editPostForm.value.ApprovalStatus,
+      SharedWithCustomerOn: this.editPostForm.value.SharedWithCustomerOn,
+      Comments: this.editPostForm.value.Comments
     }
 
     if (this.editMode) {
-      this.updatePost(post.id, post)
+      this.updatePost(post.CrId, post)
     }
     else {
       this.createPost(post)

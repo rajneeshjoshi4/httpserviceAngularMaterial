@@ -18,6 +18,7 @@ export class ListingComponent implements OnInit {
   dataSource: any = [];
   displayedColumns: string[] = ['select', 'crno', 'desc', 'raisedby', 'raisedon', 'effort', 'total', 'status', 'attachment', 'action'];
   selection;
+  loading: boolean = true;
 
   @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;
 
@@ -36,20 +37,28 @@ export class ListingComponent implements OnInit {
   getAllPosts() {
     this.service.getPostsList()
       .subscribe(response => {
-        this.dataSource = new MatTableDataSource<any>(response);
+        this.dataSource = new MatTableDataSource<any>(response.Content.Result);
         this.dataSource.paginator = this.paginator;
+        this.loading = false;
 
         //console.log(response);
+        //console.log(response.Content.Result);
       })
 
   }
 
-  deletePost(post) {
+  deletePost(CrId) {
     //console.log(post);
     if (confirm('Are you sure want to delete the record?')) {
-      this.service.deletePost(post.id)
+      this.service.deletePost(CrId)
         .subscribe(response => {
-          this.getAllPosts();
+          if (response.Success == true) {
+            //show success message
+            this.getAllPosts();
+          }
+          else {
+            // show error message
+          }
         })
     }
   }
