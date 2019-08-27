@@ -1,5 +1,6 @@
 <div fxLayout="row" fxLayoutAlign="space-between center">
-  <h2 *ngIf="editMode"><mat-icon class="crrtitleicon">trending_flat</mat-icon> CR Request: {{post.CrId}}</h2>
+  <h2 *ngIf="editMode">
+    <mat-icon class="crrtitleicon">trending_flat</mat-icon> CR Request: {{post.CrId}}</h2>
   <h2 *ngIf="!editMode">New Change Request</h2>
   <div class="tools">
     <!-- <button mat-mini-fab color="basic" routerLink="/">
@@ -29,6 +30,12 @@
               <input formControlName="RaisedOn" matInput [matDatepicker]="picker" placeholder="Raised On">
               <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
               <mat-datepicker #picker></mat-datepicker>
+              <mat-error *ngIf="editPostForm.controls['RaisedOn'].hasError('required') &&
+              editPostForm.controls['RaisedOn'].touched">
+                Date is
+                <strong>required</strong>
+              </mat-error>
+
             </mat-form-field>
           </div>
         </div>
@@ -39,6 +46,11 @@
             <mat-radio-button value=2002>Client</mat-radio-button>
             <mat-radio-button value=2003>Compunnal</mat-radio-button>
           </mat-radio-group>
+          <mat-error *ngIf="editPostForm.controls['RaisedBy'].hasError('required') &&
+          editPostForm.controls['RaisedBy'].touched">
+            Effort is required
+          </mat-error>
+
         </div>
 
         <div fxFlex="100" fxLayout="row" fxLayoutGap="40px" class="fromrow">
@@ -46,17 +58,42 @@
             <mat-form-field class="full-width">
               <input formControlName="EffortHours" matInput placeholder="Effort" value="">
               <mat-icon matSuffix>access_time</mat-icon>
+              <mat-error *ngIf="editPostForm.controls['EffortHours'].hasError('required') &&
+              editPostForm.controls['EffortHours'].touched">
+                Effort is
+                <strong>required</strong>
+              </mat-error>
+              <mat-error *ngIf="editPostForm.controls['EffortHours'].hasError('pattern')">
+                Only Number is
+                <strong>allowed</strong>
+              </mat-error>
+              <mat-error *ngIf="editPostForm.controls['EffortHours'].hasError('maxlength')">
+                Too much hours
+              </mat-error>
             </mat-form-field>
           </div>
           <div fxFlex="50">
             <mat-form-field class="full-width">
               <input formControlName="Total" matInput placeholder="Total" value="">
               <mat-icon matSuffix>monetization_on</mat-icon>
+              <mat-error *ngIf="editPostForm.controls['Total'].hasError('required') &&
+              editPostForm.controls['Total'].touched">
+                Total is
+                <strong>required</strong>
+              </mat-error>
+              <mat-error *ngIf="editPostForm.controls['Total'].hasError('pattern') &&
+                editPostForm.controls['Total'].touched">
+                Only Number is
+                <strong>allowed</strong>
+              </mat-error>
+              <mat-error *ngIf="editPostForm.controls['Total'].hasError('maxlength')">
+                  Too much hours
+                </mat-error>
             </mat-form-field>
           </div>
         </div>
         <div fxFlex="100" fxLayout="row" fxLayoutGap="40px" class="fromrow">
-          <mat-file-upload class="fileupload"  [labelText]="'CR Document'"></mat-file-upload>
+          <mat-file-upload class="fileupload" [labelText]="'CR Document'"></mat-file-upload>
           <!-- <label>attachment:</label>
           <input formControlName="attachment" type="text" /> -->
         </div>
@@ -66,14 +103,35 @@
       <div fxFlex="50" fxLayout="column">
         <div fxFlex="100" class="fromrow">
           <mat-form-field class="full-width">
-            <textarea formControlName="ChangeDescription" matInput placeholder="Description" class="textarea"></textarea>
+            <textarea formControlName="ChangeDescription" maxlength="256" #message matInput placeholder="Description" class="textarea"
+              required></textarea>
+            <mat-hint align="start">
+              <strong>Total limit of words</strong>
+            </mat-hint>
+            <mat-hint align="end">{{message.value.length}} / 256</mat-hint>
+            <mat-error *ngIf="editPostForm.controls['ChangeDescription'].hasError('required') &&
+            editPostForm.controls['ChangeDescription'].touched">
+              Description is
+              <strong>required</strong>
+            </mat-error>
+
           </mat-form-field>
+
+
+          <!-- <mat-error *ngIf="editPostForm.ChangeDescription.hasError('required')">
+              Email is <strong>required</strong>
+            </mat-error> -->
         </div>
         <div fxFlex="100" fxLayout="row" fxLayoutGap="40px" class="fromrow">
           <mat-form-field class="full-width">
             <input value="" formControlName="SharedWithCustomerOn" matInput [matDatepicker]="pickertwo" placeholder="Shared with Client">
             <mat-datepicker-toggle matSuffix [for]="pickertwo"></mat-datepicker-toggle>
             <mat-datepicker #pickertwo></mat-datepicker>
+            <mat-error *ngIf="editPostForm.controls['SharedWithCustomerOn'].hasError('required') &&
+            editPostForm.controls['SharedWithCustomerOn'].touched">
+              Date is
+              <strong>required</strong>
+            </mat-error>
           </mat-form-field>
 
           <mat-form-field class="full-width">
@@ -83,20 +141,25 @@
               <mat-option value=1003>On Hold</mat-option>
               <mat-option value=1004>Disapproved</mat-option>
             </mat-select>
+            <mat-error *ngIf="editPostForm.controls['ApprovalStatus'].hasError('required') &&
+            editPostForm.controls['ApprovalStatus'].touched">
+              Approval Status is
+              <strong>required</strong>
+            </mat-error>
           </mat-form-field>
 
         </div>
         <div fxFlex="100" class="fromrow">
-            <mat-form-field class="full-width">
-              <textarea formControlName="Comments" matInput placeholder="Comments"></textarea>
-            </mat-form-field>
-          </div>
+          <mat-form-field class="full-width">
+            <textarea formControlName="Comments" matInput placeholder="Comments"></textarea>
+          </mat-form-field>
+        </div>
       </div>
     </div>
 
     <div>
-      <button *ngIf="!editMode" mat-raised-button color="primary" type="submit" (click)="onSubmit()">SAVE</button>
-      <button *ngIf="editMode" mat-raised-button color="primary" type="submit" (click)="onSubmit()">UPDATE</button>
+      <button *ngIf="!editMode" [disabled]="!editPostForm.valid" mat-raised-button color="primary" type="submit" (click)="onSubmit()">SAVE</button>
+      <button *ngIf="editMode" [disabled]="!editPostForm.valid" mat-raised-button color="primary" type="submit" (click)="onSubmit()">UPDATE</button>
       <button mat-button routerLink="/">CANCEL</button>
     </div>
   </form>

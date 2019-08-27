@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit, ViewChild, Input } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { PostService } from '../services/post.service';
 import { RouterModule, Routes, Router, ActivatedRoute } from '@angular/router';
@@ -11,6 +11,10 @@ import { RouterModule, Routes, Router, ActivatedRoute } from '@angular/router';
 export class PostsComponent implements OnInit {
   //@ViewChild('form', { static: true }) inputPostForm: NgForm;
   posts: any;
+  filterValue: string;
+  
+
+
 
   constructor(private service: PostService,
     private router: Router,
@@ -43,6 +47,11 @@ export class PostsComponent implements OnInit {
 
   trackPost(index, post) {
     return post ? post.id : undefined;
+  }
+
+  statusfilter(value) {
+    this.filterValue = value;
+    //alert(this.filterValue)
   }
 
   ngOnInit() {

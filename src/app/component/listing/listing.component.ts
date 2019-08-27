@@ -1,5 +1,5 @@
 import { Post } from './../../models/post';
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit, ViewChild, Input, OnChanges } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { PostService } from '../../services/post.service';
 import { RouterModule, Routes, Router, ActivatedRoute } from '@angular/router';
@@ -14,7 +14,8 @@ import { MatPaginator } from '@angular/material/paginator';
   styleUrls: ['./listing.component.scss']
 })
 
-export class ListingComponent implements OnInit {
+export class ListingComponent implements OnInit, OnChanges {
+  @Input() filterValue: string;
   dataSource: any = [];
   displayedColumns: string[] = ['select', 'crno', 'desc', 'raisedby', 'raisedon', 'effort', 'total', 'status', 'attachment', 'action'];
   selection;
@@ -33,6 +34,11 @@ export class ListingComponent implements OnInit {
     this.getAllPosts();
 
   }
+  ngOnChanges() {
+    console.log(`ngOnChanges - data is ${this.filterValue}`);
+    //this.getAllPosts();
+    
+  }
 
   getAllPosts() {
     this.service.getPostsList()
@@ -40,6 +46,7 @@ export class ListingComponent implements OnInit {
         this.dataSource = new MatTableDataSource<any>(response.Content.Result);
         this.dataSource.paginator = this.paginator;
         this.loading = false;
+        console.log(this.filterValue);
 
         //console.log(response);
         //console.log(response.Content.Result);
@@ -84,6 +91,13 @@ export class ListingComponent implements OnInit {
       return `${this.isAllSelected() ? 'select' : 'deselect'} all`;
     }
     return `${this.selection.isSelected(row) ? 'deselect' : 'select'} row ${row.id + 1}`;
+  }
+
+
+  applyFilter(filterValue: string) {
+    filterValue = filterValue.trim(); // Remove whitespace
+    filterValue = filterValue.toLowerCase(); // MatTableDataSource defaults to lowercase matches
+    this.dataSource.filter = filterValue;
   }
 
 

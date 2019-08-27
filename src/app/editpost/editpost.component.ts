@@ -2,7 +2,7 @@ import { Post } from './../models/post';
 import { Router, ActivatedRoute, Params } from '@angular/router';
 import { PostService } from 'src/app/services/post.service';
 import { Component, OnInit } from '@angular/core';
-import { FormGroup, FormControl } from '@angular/forms';
+import { FormGroup, FormControl, Validators } from '@angular/forms';
 import * as _ from 'lodash';
 import { HttpClient } from '@angular/common/http';
 import { CustomFilePickerAdapter } from './../custom-file-picker.adapter';
@@ -43,18 +43,22 @@ export class EditpostComponent implements OnInit {
     this.editPostForm = new FormGroup({
       'CrId': new FormControl(), //id is auto generated
       'ProjectId': new FormControl(2003),
-      'ChangeDescription': new FormControl(''),
-      'RaisedBy': new FormControl(''),
-      'RaisedOn': new FormControl(''),
-      'EffortHours': new FormControl(''),
-      'Total': new FormControl(''),
-      'ApprovalStatus': new FormControl(''),
+      'ChangeDescription': new FormControl('', [Validators.required]),
+      'RaisedBy': new FormControl('', [Validators.required]),
+      'RaisedOn': new FormControl('', [Validators.required]),
+      'EffortHours': new FormControl('', [Validators.required,
+      Validators.pattern("^[0-9]*$"),
+      Validators.maxLength(3),]),
+      'Total': new FormControl('', [Validators.required,
+      Validators.pattern("^[0-9]*$"),
+      Validators.maxLength(3),]),
+      'ApprovalStatus': new FormControl('', [Validators.required]),
       'Documents': new FormControl(''),
-      'SharedWithCustomerOn': new FormControl(''),
+      'SharedWithCustomerOn': new FormControl('', [Validators.required]),
       'Comments': new FormControl('')
 
     })
-    
+
     this.editPostForm.get('CrId').setValue(0);
     this.editPostForm.get('ProjectId').disable();
 
@@ -85,7 +89,7 @@ export class EditpostComponent implements OnInit {
     console.log(this.editPostForm);
     let post: any = {
       CrId: this.editPostForm.value.CrId,
-      ProjectId: this.post.ProjectId  || 2003,
+      ProjectId: this.post.ProjectId || 2003,
       ChangeDescription: this.editPostForm.value.ChangeDescription,
       RaisedBy: this.editPostForm.value.RaisedBy,
       RaisedOn: this.editPostForm.value.RaisedOn,
