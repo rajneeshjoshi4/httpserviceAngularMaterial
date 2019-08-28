@@ -43,12 +43,12 @@ export class EditpostComponent implements OnInit {
     this.editPostForm = new FormGroup({
       'CrId': new FormControl(), //id is auto generated
       'ProjectId': new FormControl(2003),
-      'ChangeDescription': new FormControl('', [Validators.required]),
+      'ChangeDescription': new FormControl('', [Validators.required, Validators.maxLength(256)]),
       'RaisedBy': new FormControl('', [Validators.required]),
       'RaisedOn': new FormControl('', [Validators.required]),
       'EffortHours': new FormControl('', [Validators.required,
       Validators.pattern("^[0-9]*$"),
-      Validators.maxLength(3),]),
+      Validators.maxLength(3)]),
       'Total': new FormControl('', [Validators.required,
       Validators.pattern("^[0-9]*$"),
       Validators.maxLength(3),]),
@@ -125,6 +125,10 @@ export class EditpostComponent implements OnInit {
         this.isAdded = true;
         setTimeout(() => { this.isAdded = false; }, 3000);
       })
+  }
+
+  hasError(controlName: string, errorName: string) {
+    return this.editPostForm.controls[controlName].hasError(errorName);
   }
 
 }

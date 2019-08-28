@@ -30,11 +30,7 @@
               <input formControlName="RaisedOn" matInput [matDatepicker]="picker" placeholder="Raised On">
               <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
               <mat-datepicker #picker></mat-datepicker>
-              <mat-error *ngIf="editPostForm.controls['RaisedOn'].hasError('required') &&
-              editPostForm.controls['RaisedOn'].touched">
-                Date is
-                <strong>required</strong>
-              </mat-error>
+              <mat-error *ngIf="hasError('RaisedOn', 'required')">Date is required</mat-error>
 
             </mat-form-field>
           </div>
@@ -46,9 +42,8 @@
             <mat-radio-button value=2002>Client</mat-radio-button>
             <mat-radio-button value=2003>Compunnal</mat-radio-button>
           </mat-radio-group>
-          <mat-error *ngIf="editPostForm.controls['RaisedBy'].hasError('required') &&
-          editPostForm.controls['RaisedBy'].touched">
-            Effort is required
+          <mat-error *ngIf="hasError('RaisedBy', 'required')">
+            Raised by is required
           </mat-error>
 
         </div>
@@ -58,16 +53,15 @@
             <mat-form-field class="full-width">
               <input formControlName="EffortHours" matInput placeholder="Effort" value="">
               <mat-icon matSuffix>access_time</mat-icon>
-              <mat-error *ngIf="editPostForm.controls['EffortHours'].hasError('required') &&
-              editPostForm.controls['EffortHours'].touched">
+              <mat-error *ngIf="hasError('EffortHours', 'required')">
                 Effort is
                 <strong>required</strong>
               </mat-error>
-              <mat-error *ngIf="editPostForm.controls['EffortHours'].hasError('pattern')">
+              <mat-error *ngIf="hasError('EffortHours', 'pattern')">
                 Only Number is
                 <strong>allowed</strong>
               </mat-error>
-              <mat-error *ngIf="editPostForm.controls['EffortHours'].hasError('maxlength')">
+              <mat-error *ngIf="hasError('EffortHours', 'maxlength')">
                 Too much hours
               </mat-error>
             </mat-form-field>
@@ -76,17 +70,15 @@
             <mat-form-field class="full-width">
               <input formControlName="Total" matInput placeholder="Total" value="">
               <mat-icon matSuffix>monetization_on</mat-icon>
-              <mat-error *ngIf="editPostForm.controls['Total'].hasError('required') &&
-              editPostForm.controls['Total'].touched">
+              <mat-error *ngIf="hasError('Total', 'required')">
                 Total is
                 <strong>required</strong>
               </mat-error>
-              <mat-error *ngIf="editPostForm.controls['Total'].hasError('pattern') &&
-                editPostForm.controls['Total'].touched">
+              <mat-error *ngIf="hasError('Total', 'pattern')">
                 Only Number is
                 <strong>allowed</strong>
               </mat-error>
-              <mat-error *ngIf="editPostForm.controls['Total'].hasError('maxlength')">
+              <mat-error *ngIf="hasError('Total', 'maxlength')">
                   Too much hours
                 </mat-error>
             </mat-form-field>
@@ -103,17 +95,19 @@
       <div fxFlex="50" fxLayout="column">
         <div fxFlex="100" class="fromrow">
           <mat-form-field class="full-width">
-            <textarea formControlName="ChangeDescription" maxlength="256" #message matInput placeholder="Description" class="textarea"
+            <textarea formControlName="ChangeDescription" #message matInput placeholder="Description" class="textarea"
               required></textarea>
             <mat-hint align="start">
               <strong>Total limit of words</strong>
             </mat-hint>
             <mat-hint align="end">{{message.value.length}} / 256</mat-hint>
-            <mat-error *ngIf="editPostForm.controls['ChangeDescription'].hasError('required') &&
-            editPostForm.controls['ChangeDescription'].touched">
+            <mat-error *ngIf="hasError('ChangeDescription', 'required')">
               Description is
               <strong>required</strong>
             </mat-error>
+            <mat-error *ngIf="hasError('ChangeDescription', 'maxlength')">
+                Character limit is 256
+              </mat-error>
 
           </mat-form-field>
 
@@ -127,8 +121,7 @@
             <input value="" formControlName="SharedWithCustomerOn" matInput [matDatepicker]="pickertwo" placeholder="Shared with Client">
             <mat-datepicker-toggle matSuffix [for]="pickertwo"></mat-datepicker-toggle>
             <mat-datepicker #pickertwo></mat-datepicker>
-            <mat-error *ngIf="editPostForm.controls['SharedWithCustomerOn'].hasError('required') &&
-            editPostForm.controls['SharedWithCustomerOn'].touched">
+            <mat-error *ngIf="hasError('SharedWithCustomerOn', 'required')">
               Date is
               <strong>required</strong>
             </mat-error>
@@ -141,8 +134,7 @@
               <mat-option value=1003>On Hold</mat-option>
               <mat-option value=1004>Disapproved</mat-option>
             </mat-select>
-            <mat-error *ngIf="editPostForm.controls['ApprovalStatus'].hasError('required') &&
-            editPostForm.controls['ApprovalStatus'].touched">
+            <mat-error *ngIf="hasError('ApprovalStatus', 'required')">
               Approval Status is
               <strong>required</strong>
             </mat-error>
