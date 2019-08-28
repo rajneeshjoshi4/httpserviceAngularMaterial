@@ -39,13 +39,12 @@
         <div fxFlex="100" fxLayout="row" fxLayoutGap="40px" class="fromrow">
           <mat-radio-group formControlName="RaisedBy" aria-label="Select an option" class="radiobuttons" color="primary">
             <label>Raised By</label>
-            <mat-radio-button value=2002>Client</mat-radio-button>
-            <mat-radio-button value=2003>Compunnal</mat-radio-button>
+            <mat-radio-button value=2002 [checked]="editPostForm.controls.RaisedBy.value === 2002">Client</mat-radio-button>
+            <mat-radio-button value=2003 [checked]="editPostForm.controls.RaisedBy.value === 2003">Compunnal</mat-radio-button>
           </mat-radio-group>
-          <mat-error *ngIf="hasError('RaisedBy', 'required')">
+          <mat-error *ngIf="hasError('RaisedBy', 'required') && editPostForm.controls['RaisedBy'].touched">
             Raised by is required
           </mat-error>
-
         </div>
 
         <div fxFlex="100" fxLayout="row" fxLayoutGap="40px" class="fromrow">
