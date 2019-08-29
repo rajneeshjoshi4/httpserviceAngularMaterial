@@ -1,5 +1,5 @@
 import { Post } from './../../models/post';
-import { Component, OnInit, ViewChild, Input, OnChanges } from '@angular/core';
+import { Component, OnInit, ViewChild, Input, OnChanges, AfterViewInit } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { PostService } from '../../services/post.service';
 import { RouterModule, Routes, Router, ActivatedRoute } from '@angular/router';
@@ -14,14 +14,15 @@ import { MatPaginator } from '@angular/material/paginator';
   styleUrls: ['./listing.component.scss']
 })
 
-export class ListingComponent implements OnInit, OnChanges {
+export class ListingComponent implements OnInit, OnChanges, AfterViewInit {
   @Input() filterValue: string;
-  dataSource: any = [];
+  public dataSource = new MatTableDataSource<Post>();
   displayedColumns: string[] = ['select', 'crno', 'desc', 'raisedby', 'raisedon', 'effort', 'total', 'status', 'attachment', 'action'];
   selection;
   loading: boolean = true;
 
   @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;
+
 
   constructor(private service: PostService,
     private router: Router,
@@ -32,22 +33,42 @@ export class ListingComponent implements OnInit, OnChanges {
 
   ngOnInit() {
     this.getAllPosts();
-
   }
+
+  ngAfterViewInit() {
+    this.dataSource.paginator = this.paginator;
+
+
+//Filter of table
+    this.dataSource.filterPredicate = function (data, filter: string): boolean {
+      return data.ApprovalStatus.toString() == filter;
+    };
+
+    // console.log(this.dataSource);
+  }
+
+
   ngOnChanges() {
     console.log(`ngOnChanges - data is ${this.filterValue}`);
-    //this.getAllPosts();
-    
+    this.dataSource.filter = this.filterValue;
+
+
+
+    console.log(this.dataSource);
+
   }
 
   getAllPosts() {
     this.service.getPostsList()
       .subscribe(response => {
-        this.dataSource = new MatTableDataSource<any>(response.Content.Result);
-        this.dataSource.paginator = this.paginator;
+        this.dataSource.data = response.Content.Result as Post[];
         this.loading = false;
-        console.log(this.filterValue);
+        //this.dataSource = new MatTableDataSource<any>(response.Content.Result);
+        //this.dataSource.paginator = this.paginator;
 
+        //console.log(this.filterValue);
+        //console.log(this.dataSource);
+        //this.dataSource.paginator = this.paginator;
         //console.log(response);
         //console.log(response.Content.Result);
       })
