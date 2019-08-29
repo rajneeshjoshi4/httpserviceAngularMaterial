@@ -50,7 +50,7 @@
         <div fxFlex="100" fxLayout="row" fxLayoutGap="40px" class="fromrow">
           <div fxFlex="50">
             <mat-form-field class="full-width">
-              <input formControlName="EffortHours" matInput placeholder="Effort" value="">
+              <input formControlName="EffortHours" matInput placeholder="Effort" type="number">
               <mat-icon matSuffix>access_time</mat-icon>
               <mat-error *ngIf="hasError('EffortHours', 'required')">
                 Effort is
