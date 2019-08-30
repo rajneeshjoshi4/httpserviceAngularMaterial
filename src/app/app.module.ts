@@ -14,6 +14,7 @@ import { EditpostComponent } from './editpost/editpost.component';
 import { MatFileUploadModule } from 'mat-file-upload';
 import { HeaderComponent } from './core/header/header.component';
 import { ListingComponent } from './component/listing/listing.component';
+import { TrimPipe } from './pipes/trim.pipe';
 
 
 @NgModule({
@@ -22,7 +23,8 @@ import { ListingComponent } from './component/listing/listing.component';
     PostsComponent,
     EditpostComponent,
     HeaderComponent,
-    ListingComponent
+    ListingComponent,
+    TrimPipe
   ],
   imports: [
     BrowserModule,

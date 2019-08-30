@@ -45,10 +45,6 @@ export class PostService {
 
 
 
-  getApprovedStatus() {
-    return this.http.get(this.compunnalapi + 'GetApprovedStatus');
-  }
-
   // Get all Posts data
   getPostsList(): Observable<any> {
     return this.http
@@ -98,10 +94,32 @@ export class PostService {
   }
 
 
- // Delete post by id
- deletePost(id):Observable<any>{
-  return this.http
-    .delete<any>(this.compunnalapi + 'ChangeRequest/' + id, this.httpOptions)
-    .pipe(catchError(this.handleError))
-}
+  // Delete post by id
+  deletePost(id): Observable<any> {
+    return this.http
+      .delete<any>(this.compunnalapi + 'ChangeRequest/' + id, this.httpOptions)
+      .pipe(catchError(this.handleError))
+  }
+
+
+  //Get Approval Status values
+  getApprovedStatus(): Observable<any> {
+    return this.http
+      .get<any>(this.compunnalapi + 'GetApprovedStatus')
+      .pipe(
+      retry(2),
+      catchError(this.handleError)
+      )
+  }
+
+
+  //Get Raised by values
+  getRaisedBy(): Observable<any> {
+    return this.http
+      .get<any>(this.compunnalapi + 'GetRaiseBy')
+      .pipe(
+      retry(2),
+      catchError(this.handleError)
+      )
+  }
 }

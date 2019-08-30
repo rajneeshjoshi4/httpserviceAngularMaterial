@@ -6,6 +6,7 @@ import { RouterModule, Routes, Router, ActivatedRoute } from '@angular/router';
 import { SelectionModel } from '@angular/cdk/collections';
 import { MatTableDataSource } from '@angular/material';
 import { MatPaginator } from '@angular/material/paginator';
+import * as _ from 'lodash';
 
 
 @Component({
@@ -20,6 +21,10 @@ export class ListingComponent implements OnInit, OnChanges, AfterViewInit {
   displayedColumns: string[] = ['select', 'crno', 'desc', 'raisedby', 'raisedon', 'effort', 'total', 'status', 'attachment', 'action'];
   selection;
   loading: boolean = true;
+  statusList: any = [];
+  raisedByList: any = [];
+  status: any;
+
 
   @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;
 
@@ -33,13 +38,23 @@ export class ListingComponent implements OnInit, OnChanges, AfterViewInit {
 
   ngOnInit() {
     this.getAllPosts();
+
+    this.service.getApprovedStatus().subscribe(responseData => {
+      this.statusList = responseData.Content.Result;
+      console.log(this.statusList)
+    })
+
+    this.service.getRaisedBy().subscribe(responseData => {
+      this.raisedByList = responseData.Content.Result;
+      console.log(this.raisedByList)
+    })
   }
 
   ngAfterViewInit() {
     this.dataSource.paginator = this.paginator;
 
 
-//Filter of table
+    //Filter of table
     this.dataSource.filterPredicate = function (data, filter: string): boolean {
       return data.ApprovalStatus.toString() == filter;
     };
@@ -90,6 +105,20 @@ export class ListingComponent implements OnInit, OnChanges, AfterViewInit {
         })
     }
   }
+
+
+
+  getStatusName(statusCode: number) {
+    this.status = _.find(this.statusList, ['ApprovedStatusId', statusCode])
+    return this.status.ApprovedStatusName;
+  }
+
+
+  getRaisedByName(raisedById: number) {
+    var status = _.find(this.raisedByList, ['RaisedById', raisedById])
+    return status.RaisedByName;
+  }
+
 
   /** Whether the number of selected elements matches the total number of rows. */
   isAllSelected() {

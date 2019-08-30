@@ -127,11 +127,8 @@
           </mat-form-field>
 
           <mat-form-field class="full-width">
-            <mat-select formControlName="ApprovalStatus" placeholder="Status">
-              <mat-option value=1001>Pending</mat-option>
-              <mat-option value=1002>Approved</mat-option>
-              <mat-option value=1003>On Hold</mat-option>
-              <mat-option value=1004>Disapproved</mat-option>
+            <mat-select formControlName="ApprovalStatus" placeholder="Status" [(value)]="statusValSelected">
+              <mat-option *ngFor="let status of statusList" [value]=status.ApprovedStatusId>{{status.ApprovedStatusName}}</mat-option>
             </mat-select>
             <mat-error *ngIf="hasError('ApprovalStatus', 'required')">
               Approval Status is

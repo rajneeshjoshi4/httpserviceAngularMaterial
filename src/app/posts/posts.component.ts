@@ -2,6 +2,7 @@ import { Component, OnInit, ViewChild, Input } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { PostService } from '../services/post.service';
 import { RouterModule, Routes, Router, ActivatedRoute } from '@angular/router';
+import * as _ from 'lodash';
 
 @Component({
   selector: 'app-posts',
@@ -11,8 +12,9 @@ import { RouterModule, Routes, Router, ActivatedRoute } from '@angular/router';
 export class PostsComponent implements OnInit {
   //@ViewChild('form', { static: true }) inputPostForm: NgForm;
   posts: any;
+  statusList: any = [];
   filterValue: string;
-  
+
 
 
 
@@ -49,18 +51,22 @@ export class PostsComponent implements OnInit {
     return post ? post.id : undefined;
   }
 
-  statusfilter(value) {
-    this.filterValue = value;
-    //alert(this.filterValue)
+  statusfilter(value?) {
+    if (value) {
+      this.filterValue = value;
+    }
+    else {
+      this.filterValue = '';
+    }
   }
 
   ngOnInit() {
     this.getAllPosts();
 
-    //compunnal  example
     this.service.getApprovedStatus().subscribe(responseData => {
-      //console.log(responseData.Content.Result);
-      console.log(responseData);
+      this.statusList = responseData.Content.Result;
+      console.log(this.statusList)
     })
+
   }
 }

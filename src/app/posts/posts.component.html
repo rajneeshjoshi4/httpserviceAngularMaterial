@@ -7,22 +7,15 @@
       <button mat-mini-fab color="primary" [matMenuTriggerFor]="filter">
         <mat-icon>filter_list</mat-icon>
       </button>
+
       <mat-menu #filter="matMenu">
-        <button #selectedValue (click)="statusfilter(1002)" class="approved" mat-menu-item>
+        <button *ngFor="let status of statusList"  #selectedValue (click)="statusfilter(status.ApprovedStatusId)" [ngClass]="status.ApprovedStatusName | lowercase | trim"  mat-menu-item>
           <mat-icon>trip_origin</mat-icon>
-          <span>Approved</span>
+          <span>{{status.ApprovedStatusName}}</span>
         </button>
-        <button class="pending" mat-menu-item>
-          <mat-icon>trip_origin</mat-icon>
-          <span>Pending</span>
-        </button>
-        <button class="hold" mat-menu-item>
-          <mat-icon>trip_origin</mat-icon>
-          <span>On Hold</span>
-        </button>
-        <button class="dis" mat-menu-item>
-          <mat-icon>trip_origin</mat-icon>
-          <span>Disapproved</span>
+        <button #selectedValue class="pending" (click)="statusfilter()" mat-menu-item>
+          <mat-icon></mat-icon>
+          <span>Clear</span>
         </button>
       </mat-menu>
   

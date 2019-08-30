@@ -21,6 +21,8 @@ export class EditpostComponent implements OnInit {
 
   editMode = false;
   posts: any = [];
+  statusList: any = [];
+  statusValSelected: number;
 
   editPostForm: FormGroup;
 
@@ -68,6 +70,9 @@ export class EditpostComponent implements OnInit {
         this.post = responseData.Content.Result;
         //console.log(this.post);
 
+        this.statusValSelected = this.post.ApprovalStatus;
+        //console.log(this.statusValSelected);
+
         this.editPostForm.setValue({
           'CrId': this.post.CrId,
           'ProjectId': this.post.ProjectId,
@@ -83,6 +88,11 @@ export class EditpostComponent implements OnInit {
         });
       })
     }
+
+    this.service.getApprovedStatus().subscribe(responseData => {
+      this.statusList = responseData.Content.Result;
+      console.log(this.statusList)
+    })
   }
 
   onSubmit() {
