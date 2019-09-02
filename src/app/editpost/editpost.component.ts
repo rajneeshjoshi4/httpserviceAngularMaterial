@@ -4,8 +4,9 @@ import { PostService } from 'src/app/services/post.service';
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import * as _ from 'lodash';
+import * as moment from 'moment';
 import { HttpClient } from '@angular/common/http';
-import { CustomFilePickerAdapter } from './../custom-file-picker.adapter';
+
 
 @Component({
   selector: 'app-editpost',
@@ -26,7 +27,11 @@ export class EditpostComponent implements OnInit {
 
   editPostForm: FormGroup;
 
-  adapter = new CustomFilePickerAdapter(this.http);
+
+
+  todayDate = new Date();
+  minDate = moment(this.todayDate).subtract(1, 'month').toDate();
+  maxDate = moment(this.todayDate).add(1, 'month').toDate();
 
 
 
@@ -48,11 +53,14 @@ export class EditpostComponent implements OnInit {
       'ChangeDescription': new FormControl('', [Validators.required, Validators.maxLength(256)]),
       'RaisedBy': new FormControl('', [Validators.required]),
       'RaisedOn': new FormControl('', [Validators.required]),
-      'EffortHours': new FormControl('', [Validators.required,
-      Validators.pattern("^[0-9]*$"),
-      Validators.maxLength(3)]),
+      'EffortHours': new FormControl('', [
+        Validators.required,
+        Validators.min(0)
+        //Validators.pattern("^[0-9]*$"),
+      ]),
       'Total': new FormControl('', [Validators.required,
-      Validators.pattern("^[0-9]*$"),
+      Validators.required,
+      Validators.min(0),
       Validators.maxLength(3),]),
       'ApprovalStatus': new FormControl('', [Validators.required]),
       'Documents': new FormControl(''),

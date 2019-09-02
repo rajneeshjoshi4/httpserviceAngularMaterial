@@ -27,7 +27,7 @@
           </div>
           <div fxFlex="50">
             <mat-form-field class="full-width">
-              <input formControlName="RaisedOn" matInput [matDatepicker]="picker" placeholder="Raised On">
+              <input formControlName="RaisedOn" matInput [matDatepicker]="picker" placeholder="Raised On" readonly [min]="minDate" [max]="maxDate">
               <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
               <mat-datepicker #picker></mat-datepicker>
               <mat-error *ngIf="hasError('RaisedOn', 'required')">Date is required</mat-error>
@@ -56,9 +56,9 @@
                 Effort is
                 <strong>required</strong>
               </mat-error>
-              <mat-error *ngIf="hasError('EffortHours', 'pattern')">
-                Only Number is
-                <strong>allowed</strong>
+              <mat-error *ngIf="hasError('EffortHours', 'min')  &&
+              editPostForm.controls['EffortHours'].touched">
+                Only positive Number is allowed
               </mat-error>
               <mat-error *ngIf="hasError('EffortHours', 'maxlength')">
                 Too much hours
@@ -67,7 +67,7 @@
           </div>
           <div fxFlex="50">
             <mat-form-field class="full-width">
-              <input formControlName="Total" matInput placeholder="Total" value="">
+              <input formControlName="Total" matInput placeholder="Total" type="number">
               <mat-icon matSuffix>monetization_on</mat-icon>
               <mat-error *ngIf="hasError('Total', 'required')">
                 Total is
