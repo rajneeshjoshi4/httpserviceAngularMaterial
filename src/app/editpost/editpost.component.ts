@@ -94,6 +94,10 @@ export class EditpostComponent implements OnInit {
           'SharedWithCustomerOn': this.post.SharedWithCustomerOn,
           'Comments': this.post.Comments
         });
+
+        this.editPostForm.get('RaisedOn').clearValidators()
+        this.editPostForm.get('RaisedOn').setValidators([Validators.required]);
+       // this.editPostForm.get('RaisedOn').updateValueAndValidity();
       })
     }
 
