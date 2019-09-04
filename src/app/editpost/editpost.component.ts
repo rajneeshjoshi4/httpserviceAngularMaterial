@@ -2,17 +2,47 @@ import { Post } from './../models/post';
 import { Router, ActivatedRoute, Params } from '@angular/router';
 import { PostService } from 'src/app/services/post.service';
 import { Component, OnInit } from '@angular/core';
-import { FormGroup, FormControl, Validators } from '@angular/forms';
+import { FormGroup, FormControl, Validators, AbstractControl } from '@angular/forms';
 import * as _ from 'lodash';
-import * as moment from 'moment';
 import { HttpClient } from '@angular/common/http';
+import { noWhitespaceValidator } from 'src/app/validators/no-whitespace.validator'
+
+
+import { MomentDateAdapter } from '@angular/material-moment-adapter';
+import { DateAdapter, MAT_DATE_FORMATS, MAT_DATE_LOCALE } from '@angular/material/core';
+
+import * as _moment from 'moment';
+// tslint:disable-next-line:no-duplicate-imports
+import { default as _rollupMoment } from 'moment';
+const moment = _rollupMoment || _moment;
+
+
+// See the Moment.js docs for the meaning of these formats:
+// https://momentjs.com/docs/#/displaying/format/
+export const MY_FORMATS = {
+  parse: {
+    dateInput: 'DD/MM/YYYY',
+  },
+  display: {
+    dateInput: 'DD/MM/YYYY',
+    monthYearLabel: 'MMM YYYY',
+    dateA11yLabel: 'LL',
+    monthYearA11yLabel: 'MMMM YYYY',
+  },
+};
 
 
 @Component({
   selector: 'app-editpost',
   templateUrl: './editpost.component.html',
-  styleUrls: ['./editpost.component.scss']
+  styleUrls: ['./editpost.component.scss'],
+  providers: [
+    { provide: DateAdapter, useClass: MomentDateAdapter, deps: [MAT_DATE_LOCALE] },
+    { provide: MAT_DATE_FORMATS, useValue: MY_FORMATS },
+  ],
 })
+
+
 export class EditpostComponent implements OnInit {
   confermationStr: string = "New post has been added.";
 
@@ -28,10 +58,16 @@ export class EditpostComponent implements OnInit {
   editPostForm: FormGroup;
 
 
-
+  /* date validatioin */
   todayDate = new Date();
   minDate = moment(this.todayDate).subtract(1, 'month').toDate();
   maxDate = moment(this.todayDate).add(1, 'month').toDate();
+
+  // Prevent Saturday and Sunday from being selected.
+  myFilter = (d: Date): boolean => {
+    const day = moment(d).day();
+    return day !== 0 && day !== 6;
+  }
 
 
 
@@ -50,9 +86,9 @@ export class EditpostComponent implements OnInit {
     this.editPostForm = new FormGroup({
       'CrId': new FormControl(), //id is auto generated
       'ProjectId': new FormControl(2003),
-      'ChangeDescription': new FormControl('', [Validators.required, Validators.maxLength(256)]),
+      'ChangeDescription': new FormControl('', [Validators.required, Validators.maxLength(256), noWhitespaceValidator]),
       'RaisedBy': new FormControl('', [Validators.required]),
-      'RaisedOn': new FormControl('', [Validators.required]),
+      'RaisedOn': new FormControl(moment(), [Validators.required]),
       'EffortHours': new FormControl('', [
         Validators.required,
         Validators.min(0)

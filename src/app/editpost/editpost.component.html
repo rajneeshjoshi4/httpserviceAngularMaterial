@@ -27,7 +27,7 @@
           </div>
           <div fxFlex="50">
             <mat-form-field class="full-width">
-              <input formControlName="RaisedOn" matInput [matDatepicker]="picker" placeholder="Raised On" readonly [min]="minDate" [max]="maxDate">
+              <input formControlName="RaisedOn" matInput [matDatepicker]="picker" placeholder="Raised On" readonly [min]="minDate" [max]="maxDate" [matDatepickerFilter]="myFilter">
               <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
               <mat-datepicker #picker></mat-datepicker>
               <mat-error *ngIf="hasError('RaisedOn', 'required')">Date is required</mat-error>
@@ -100,14 +100,12 @@
               <strong>Total limit of words</strong>
             </mat-hint>
             <mat-hint align="end">{{message.value.length}} / 256</mat-hint>
-            <mat-error *ngIf="hasError('ChangeDescription', 'required')">
-              Description is
-              <strong>required</strong>
+            <mat-error *ngIf="hasError('ChangeDescription', 'required') || hasError('ChangeDescription', 'whitespace')">
+              Description is required
             </mat-error>
             <mat-error *ngIf="hasError('ChangeDescription', 'maxlength')">
                 Character limit is 256
               </mat-error>
-
           </mat-form-field>
 
 
