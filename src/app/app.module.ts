@@ -15,6 +15,7 @@ import { MatFileUploadModule } from 'mat-file-upload';
 import { HeaderComponent } from './core/header/header.component';
 import { ListingComponent } from './component/listing/listing.component';
 import { TrimPipe } from './pipes/trim.pipe';
+import { CountriesComponent } from './countries/countries.component';
 
 
 @NgModule({
@@ -24,7 +25,8 @@ import { TrimPipe } from './pipes/trim.pipe';
     EditpostComponent,
     HeaderComponent,
     ListingComponent,
-    TrimPipe
+    TrimPipe,
+    CountriesComponent
   ],
   imports: [
     BrowserModule,

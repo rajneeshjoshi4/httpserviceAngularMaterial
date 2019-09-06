@@ -1,0 +1,7 @@
+<h2>Country name serach</h2>
+<input type="text" [formControl]="term">
+<hr/>
+<div *ngIf="results.length > 0">
+
+    <li *ngFor="let result of results">{{result.name}}</li>
+</div>
